@@ -1,6 +1,37 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/Navbar';
+import Company from './components/Company';
+import Skills from './components/Skills';
+import About from './components/About';
+import Contact from './components/Contact';
+import Job from './components/Job';
 
 function App() {
+
+  const router = createBrowserRouter([
+    {
+      path: "/about",
+      element: <><Navbar/><About/></>
+    },
+    {
+      path: "/company",
+      element: <><Navbar/><Company/></>
+    },
+    {
+      path: "/contact",
+      element: <><Navbar/><Contact/></>
+    },
+    {
+      path: "/job",
+      element: <><Navbar/><Job/></>
+    },
+    {
+      path: "/skill",
+      element: <><Navbar/><Skills/></>
+    }
+  ])
+
 
   const Info = () => {
     // Data arrays
@@ -64,23 +95,29 @@ function App() {
       'https://www.timesjobs.com/job-detail/python-developer-websharan-infotech-pune-0-to-3-yrs-jobid-Ujq9FCZjPgtzpSvf__PLUS__uAgZw==&source=srp'
     ];
 
-    // Map over the arrays to generate the list of job postings
-    return companies.map((company, index) => (
-      <div key={index} style={{backgroundColor:'#FFDFD6'}} className=" p-8 m-8 rounded-xl">
-        <h3 className="text-3xl font-bold mb-2">{company}</h3>
-        <p className="text-xl mb-2"><strong>Skills Required:</strong> {skills[index]}</p>
-        <a href={jobLinks[index]} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
-          View Job Posting
-        </a>
+    // Return a grid of job postings
+    return (
+      <div className="grid lg:grid-cols-4 gap-8">
+        {companies.map((company, index) => (
+          <div key={index} style={{ backgroundColor: '#BB9AB1',height: '600px', wordWrap: 'break-word' }} className="p-8 rounded-xl transition-transform duration-300 ease-in-out transform hover:scale-105">
+            <h3 className="text-2xl font-bold mb-2">{company}</h3>
+            <p className="text-xl mb-2">
+              <strong>Skills Required:</strong> {skills[index]}
+            </p>
+            <a href={jobLinks[index]} target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">
+              View Job Posting
+            </a>
+          </div>
+        ))}
       </div>
-    ));
+    );
   };
 
   return (
-    <div style={{ backgroundColor: '#E3A5C7' }} className="h-screen w-screen overflow-auto">
-      <div className="p-8">
-        <h1 className="text-center p-6 text-5xl font-bold mb-8">Job Postings</h1>
-        <div>{Info()}</div>
+    <div style={{ backgroundColor: '#EECEB9' }} className="h-screen w-screen overflow-auto">
+      <div className="p-16">
+        <RouterProvider router = {router}/>
+        <div className="mt-8">{Info()}</div>
       </div>
     </div>
   );
