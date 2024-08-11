@@ -1,4 +1,4 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import './App.css';
 import Navbar from './components/Navbar';
 import Company from './components/Company';
@@ -6,31 +6,9 @@ import Skills from './components/Skills';
 import About from './components/About';
 import Contact from './components/Contact';
 import Job from './components/Job';
+import Home from './components/Home';
 
 function App() {
-
-  const router = createBrowserRouter([
-    {
-      path: "/about",
-      element: <><Navbar/><About/></>
-    },
-    {
-      path: "/company",
-      element: <><Navbar/><Company/></>
-    },
-    {
-      path: "/contact",
-      element: <><Navbar/><Contact/></>
-    },
-    {
-      path: "/job",
-      element: <><Navbar/><Job/></>
-    },
-    {
-      path: "/skill",
-      element: <><Navbar/><Skills/></>
-    }
-  ])
 
 
   const Info = () => {
@@ -116,7 +94,17 @@ function App() {
   return (
     <div style={{ backgroundColor: '#EECEB9' }} className="h-screen w-screen overflow-auto">
       <div className="p-16">
-        <RouterProvider router = {router}/>
+      <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/home" element={<Home Info = {Info} />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/company" element={<Company />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/job" element={<Job />} />
+        <Route path="/skill" element={<Skills />} />
+      </Routes>
+    </BrowserRouter>
         <div className="mt-8">{Info()}</div>
       </div>
     </div>
